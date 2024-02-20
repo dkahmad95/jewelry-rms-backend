@@ -1,5 +1,5 @@
 import { Injectable } from '@nestjs/common';
-import { Prisma } from '@prisma/client';
+import { Prisma, Supplier } from '@prisma/client';
 import { DatabaseService } from 'src/database/database.service';
 
 @Injectable()
@@ -12,15 +12,18 @@ export class SupplierService {
     });
   }
 
-  async findAll() {
+  async findAll(): Promise<Supplier[]> {
     return this.databaseService.supplier.findMany();
   }
 
-  async findOne(id: number) {
+  async findOne(id: number): Promise<Supplier> {
     return this.databaseService.supplier.findUnique({ where: { id } });
   }
 
-  async update(id: number, updateSupplierDto: Prisma.SupplierUpdateInput) {
+  async update(
+    id: number,
+    updateSupplierDto: Prisma.SupplierUpdateInput,
+  ): Promise<Supplier> {
     return this.databaseService.supplier.update({
       where: {
         id,
@@ -29,7 +32,7 @@ export class SupplierService {
     });
   }
 
-  async remove(id: number) {
+  async remove(id: number): Promise<Supplier> {
     return this.databaseService.supplier.delete({ where: { id } });
   }
 }
