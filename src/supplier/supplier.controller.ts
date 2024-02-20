@@ -9,7 +9,7 @@ import {
   ParseIntPipe,
 } from '@nestjs/common';
 import { SupplierService } from './supplier.service';
-import { Prisma } from '@prisma/client';
+import { Prisma, Supplier } from '@prisma/client';
 import { Throttle, SkipThrottle } from '@nestjs/throttler';
 
 
@@ -19,18 +19,18 @@ export class SupplierController {
   constructor(private readonly supplierService: SupplierService) {}
 
   @Post()
-  create(@Body() createSupplierDto: Prisma.SupplierCreateInput) {
+  create(@Body() createSupplierDto: Prisma.SupplierCreateInput): Promise<Supplier> {
     return this.supplierService.create(createSupplierDto);
   }
   @SkipThrottle({ default: false })
   @Get()
-  findAll() {
+  findAll(): Promise<Supplier[]>  {
     return this.supplierService.findAll();
   }
 
   @Throttle({ short: {ttl: 1000 , limit: 1}})
   @Get(':id')
-  findOne(@Param('id', ParseIntPipe) id: number) {
+  findOne(@Param('id', ParseIntPipe) id: number): Promise<Supplier>  {
     return this.supplierService.findOne(id);
   }
 
@@ -38,12 +38,12 @@ export class SupplierController {
   update(
     @Param('id', ParseIntPipe) id: number,
     @Body() updateSupplierDto: Prisma.SupplierUpdateInput,
-  ) {
+  ): Promise<Supplier>  {
     return this.supplierService.update(id, updateSupplierDto);
   }
 
   @Delete(':id')
-  remove(@Param('id', ParseIntPipe) id: number) {
+  remove(@Param('id', ParseIntPipe) id: number): Promise<Supplier>  {
     return this.supplierService.remove(id);
   }
 }
