@@ -1,0 +1,122 @@
+// import { Test, TestingModule } from '@nestjs/testing';
+// import { SupplierController } from '../supplier.controller';
+// import { SupplierService } from '../supplier.service';
+// import { Prisma, Supplier } from '@prisma/client';
+// import { supplierStub } from './stubs/supplier.stub';
+//
+// jest.mock('../supplier.service');
+// describe('SupplierController', () => {
+//   let supplierController: SupplierController;
+//   let supplierService: SupplierService;
+//
+//   beforeEach(async () => {
+//     const module: TestingModule = await Test.createTestingModule({
+//       controllers: [SupplierController],
+//       providers: [SupplierService],
+//     }).compile();
+//
+//     supplierController = module.get<SupplierController>(SupplierController);
+//
+//     supplierService = module.get<SupplierService>(SupplierService);
+//
+//     jest.clearAllMocks();
+//   });
+//
+//   describe('findOne', () => {
+//     describe('when findOne is called', () => {
+//       let supplier: Supplier;
+//
+//       beforeEach(async () => {
+//         supplier = await supplierController.findOne(supplierStub().id);
+//       });
+//
+//       test('then is should call supplierService', () => {
+//         expect(supplierService.findOne).toHaveBeenCalledWith(supplierStub().id);
+//       });
+//
+//       test('then it should return a supplier', () => {
+//         expect(supplier).toEqual(supplierStub());
+//       });
+//     });
+//   });
+//
+//   describe('findAll', () => {
+//     describe('when findAll is called', () => {
+//       let supplier: Supplier[];
+//
+//       beforeEach(async () => {
+//         supplier = await supplierController.findAll();
+//       });
+//
+//       test('then is should call supplierService', () => {
+//         expect(supplierService.findAll).toHaveBeenCalledWith();
+//       });
+//
+//       test('then it should return a all suppliers', () => {
+//         expect(supplier).toEqual([supplierStub()]);
+//       });
+//     });
+//   });
+//
+//   describe('create', () => {
+//     describe('when create is called', () => {
+//       let supplier: Supplier;
+//
+//       beforeEach(async () => {
+//         supplier = await supplierController.create(supplierStub());
+//       });
+//
+//       test('then is should call supplierService', () => {
+//         expect(supplierService.create).toHaveBeenCalledWith(supplierStub());
+//       });
+//
+//       test('then it should return a supplier', () => {
+//         expect(supplier).toEqual(supplierStub());
+//       });
+//     });
+//   });
+//
+//   describe('update', () => {
+//     describe('when update is called', () => {
+//       let supplier: Supplier;
+//       let updateSupplierDto: Prisma.SupplierUpdateInput;
+//
+//       beforeEach(async () => {
+//         updateSupplierDto;
+//         supplier = await supplierController.update(
+//           supplierStub().id,
+//           updateSupplierDto,
+//         );
+//       });
+//
+//       test('then is should call supplierService', () => {
+//         expect(supplierService.update).toHaveBeenCalledWith(
+//           supplierStub().id,
+//           updateSupplierDto,
+//         );
+//       });
+//
+//       test('then it should return a supplier', () => {
+//         expect(supplier).toEqual(supplierStub());
+//       });
+//     });
+//   });
+//
+//   describe('delete', () => {
+//     describe('when delete is called', () => {
+//       let supplier: Supplier;
+//
+//       beforeEach(async () => {
+//         supplier = await supplierController.delete(supplierStub().id);
+//       });
+//
+//       test('then is should call supplierService', () => {
+//         expect(supplierService.delete).toHaveBeenCalledWith(supplierStub().id);
+//       });
+//
+//       test('then it should return a supplier', () => {
+//         expect(supplier).toEqual(supplierStub());
+//       });
+//     });
+//   });
+// });
