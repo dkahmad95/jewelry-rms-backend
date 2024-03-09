@@ -1,32 +1,30 @@
 import { Module } from '@nestjs/common';
-import { AppController } from './app.controller';
-import { AppService } from './app.service';
-import { DatabaseModule } from './database/database.module';
 import { SupplierModule } from './supplier/supplier.module';
-import { Throttle, ThrottlerGuard, ThrottlerModule } from '@nestjs/throttler';
-import { APP_GUARD } from '@nestjs/core';
+import { SupplierTransModule } from './supplier-trans/supplier-trans.module';
+import { TypeOrmModule } from '@nestjs/typeorm';
+import { SupplierEntity } from './entites/supplier.entity';
+import { SupplierTransactionEntity } from "./entites/supplierTransaction.entity";
+import { SupplierTransactionItemEntity } from "./entites/supplierTransactionItem.entity";
 
 @Module({
   imports: [
-    DatabaseModule,
     SupplierModule,
-    ThrottlerModule.forRoot([
-      {
-        name: 'short',
-        ttl: 1000,
-        limit: 3,
-      },
-      {
-        name: 'long',
-        ttl: 60000,
-        limit: 100,
-      },
-    ]),
+    SupplierTransModule,
+    TypeOrmModule.forRoot({
+      type: 'postgres',
+      host: 'ep-old-flower-a37zmel0-pooler.il-central-1.aws.neon.tech',
+      port: 5432,
+      ssl: true,
+      username: 'dkahmad95',
+      password: 'seVbD30qdzZu',
+      database: 'jewelry-rms-db',
+      entities: [
+        SupplierEntity,
+        SupplierTransactionEntity,
+        SupplierTransactionItemEntity,
+      ],
+      synchronize: true,
+    }),
   ],
-  controllers: [AppController],
-  providers: [AppService, {
-    provide: APP_GUARD,
-    useClass: ThrottlerGuard
-  }],
 })
 export class AppModule {}
