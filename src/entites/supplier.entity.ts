@@ -1,4 +1,5 @@
 import { Entity, Column, PrimaryGeneratedColumn } from 'typeorm';
+import { Double } from 'typeorm';
 
 @Entity()
 export class SupplierEntity {
@@ -15,9 +16,9 @@ export class SupplierEntity {
   })
   phoneNumber: string;
 
-  @Column({ default: 0 })
-  cashBalance: number;
+  // @Column({ default: 0.0 })
+  // cashBalance: Double;
 
-  @Column({ default: 0 })
-  ramliBalance: number;
+  // @Column({ default: 0.0 })
+  // ramliBalance: Double;
 }

@@ -13,7 +13,8 @@ export class SupplierService {
 
   async createSupplier(supplier: CreateSupplierDto): Promise<SupplierEntity> {
     try {
-      const supplierEntity = this.supplierEntityRepository.create(supplier);
+      const supplierEntity: SupplierEntity =
+        this.supplierEntityRepository.create(supplier);
       const res = await this.supplierEntityRepository.save(supplierEntity);
       return res;
     } catch (e) {

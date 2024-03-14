@@ -1,26 +1,42 @@
-import { Entity, Column, PrimaryGeneratedColumn } from 'typeorm';
-import { IsPositive } from 'class-validator';
+import {
+  Entity,
+  Column,
+  PrimaryGeneratedColumn,
+  ManyToOne,
+  JoinColumn,
+} from 'typeorm';
+import { IsEnum, IsPositive } from 'class-validator';
+import { SupplierTransactionEntity } from './supplierTransaction.entity';
+
+export enum ItemsEnum {
+  EIGHTEEN_K = '18K',
+  TWENTY_ONE_K = '21K',
+  TWENTY_FOUR_K = '24K',
+  SILVER = 'Silver',
+  WATCH = 'Watch',
+}
 
 @Entity()
 export class SupplierTransactionItemEntity {
   @PrimaryGeneratedColumn()
   id: number;
 
-  //TODO : DONT FORGET TO ADD THE ENUMERATIONS
   @Column()
-  item: string;
+  @IsEnum(ItemsEnum)
+  item: ItemsEnum;
 
-  //todo : check how to add forein id
-  @Column()
-  supplierTransactionId: number;
+  // Optional relationship with SupplierTransactionEntity
+  @ManyToOne(() => SupplierTransactionEntity, { onDelete: 'CASCADE' })
+  @JoinColumn({ name: 'supplierTransactionId' })
+  supplierTransaction: SupplierTransactionEntity;
 
-  @Column()
+  @Column({ type: 'float', default: 0.0 })
   weight: number;
 
   @Column()
   description: string;
 
-  @Column()
+  @Column({ type: 'float', default: 0.0 })
   @IsPositive()
   unitPrice: number;
 }

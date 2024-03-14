@@ -1,5 +1,13 @@
-import { IsNotEmpty, IsOptional, IsPositive } from 'class-validator';
-import { Double } from 'typeorm';
+import {
+  IsEnum,
+  IsNotEmpty,
+  IsOptional,
+  IsPositive,
+  ValidateNested,
+} from 'class-validator';
+import { Double } from 'typeorm'; // Import Double for floating-point numbers
+import { Type } from 'class-transformer';
+import { ItemsEnum } from '../../entites/supplierTransactionItem.entity';
 
 export class CreateSupplierDto {
   @IsNotEmpty()
@@ -9,9 +17,11 @@ export class CreateSupplierDto {
   phoneNumber: string;
 
   @IsOptional()
+  @Type(() => Double)
   cashBalance: number;
 
   @IsOptional()
+  @Type(() => Double)
   ramliBalance: number;
 }
 
@@ -20,15 +30,18 @@ export class CreateSupplierTransactionDto {
   supplierId: number;
 
   @IsNotEmpty()
+  @Type(() => ItemDto)
+  @ValidateNested({ each: true })
   items: ItemDto[];
 }
 
-//TODO : check how to validate nested dto
 export class ItemDto {
   @IsNotEmpty()
-  item: string;
+  @IsEnum(ItemsEnum)
+  item: ItemsEnum;
 
   @IsNotEmpty()
+  @Type(() => Double)
   weight: number;
 
   @IsOptional()
@@ -36,5 +49,6 @@ export class ItemDto {
 
   @IsNotEmpty()
   @IsPositive()
+  @Type(() => Double)
   unitPrice: number;
 }

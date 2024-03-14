@@ -3,8 +3,8 @@ import { SupplierModule } from './supplier/supplier.module';
 import { SupplierTransModule } from './supplier-trans/supplier-trans.module';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { SupplierEntity } from './entites/supplier.entity';
-import { SupplierTransactionEntity } from "./entites/supplierTransaction.entity";
-import { SupplierTransactionItemEntity } from "./entites/supplierTransactionItem.entity";
+import { SupplierTransactionEntity } from './entites/supplierTransaction.entity';
+import { SupplierTransactionItemEntity } from './entites/supplierTransactionItem.entity';
 
 @Module({
   imports: [

@@ -1,9 +1,13 @@
 import { Injectable } from '@nestjs/common';
-import { CreateSupplierTransactionDto } from '../dto/supplier.dto';
+import { CreateSupplierTransactionDto, ItemDto } from '../dto/supplier.dto';
 import { SupplierTransactionEntity } from '../../entites/supplierTransaction.entity';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
-import { SupplierTransactionItemEntity } from '../../entites/supplierTransactionItem.entity';
+import {
+  ItemsEnum,
+  SupplierTransactionItemEntity,
+} from '../../entites/supplierTransactionItem.entity';
+import { SupplierEntity } from '../../entites/supplier.entity';
 
 @Injectable()
 export class SupplierTransactionService {
@@ -13,6 +17,9 @@ export class SupplierTransactionService {
 
     @InjectRepository(SupplierTransactionEntity)
     private supplierTransactionEntityRepository: Repository<SupplierTransactionEntity>,
+
+    @InjectRepository(SupplierEntity)
+    private supplierEntityRepository: Repository<SupplierEntity>,
   ) {}
 
   async createSupplierTransaction(
@@ -20,43 +27,71 @@ export class SupplierTransactionService {
   ) {
     const supplierId = supplierTransaction.supplierId;
 
-    const supplierTransactionEntity =
-      this.supplierTransactionEntityRepository.create({
-        supplierId: supplierId,
-        total18kPrice: 0,
-        total18kWeight: 0,
-      });
+    const supplier = await this.supplierEntityRepository.findOne({
+      where: {
+        id: supplierId,
+      },
+    });
 
-    let total18kPrice = 0;
+    if (supplier) {
+      const calculationRes = this.calculateSupplierTransactionValues(
+        supplierTransaction.items,
+      );
 
-    for (let i = 0; i < supplierTransaction.items.length; i++) {
-      const item = supplierTransaction.items[i];
-
-      if (item.item === '18k') {
-        total18kPrice += item.weight * item.unitPrice;
-      }
-
-      const itemEntity = this.supplierTransactionItemEntityRepository.create({
-        supplierTransactionId: supplierTransactionEntity.id,
-        item: item.item,
-        weight: item.weight,
-        description: item.description,
-        unitPrice: item.unitPrice,
-      });
-
-      const itemEntityRes =
-        await this.supplierTransactionItemEntityRepository.save(itemEntity);
-
-      console.log(itemEntityRes);
-    }
-
-    supplierTransactionEntity.total18kPrice = total18kPrice;
-    const supplierTransactionEntityRes =
-      await this.supplierTransactionEntityRepository.save(
+      const supplierTransactionEntity =
+        this.supplierTransactionEntityRepository.create(calculationRes);
+      const res = await this.supplierTransactionEntityRepository.save(
         supplierTransactionEntity,
       );
-    console.log(supplierTransaction);
-    console.log(supplierTransactionEntityRes);
-    return ' hello supplier transaction';
+      return res;
+    } else {
+      throw new Error('Supplier not found');
+    }
+  }
+
+  private calculateSupplierTransactionValues(items: ItemDto[]) {
+    const supplierTransaction: any = {
+      id: 0,
+      total18kWeight: 0,
+      total18kPrice: 0,
+      total21kPrice: 0,
+      total21kWeight: 0,
+      total24kPrice: 0,
+      total24kWeight: 0,
+      totalSilverPrice: 0,
+      totalSilverWeight: 0,
+      total18KWeightToRamli: 0,
+      total21KWeightToRamli: 0,
+      totalRamli: 0,
+    };
+
+    for (let i = 0; i < items.length; i++) {
+      const item = items[i];
+      switch (item.item) {
+        case ItemsEnum.EIGHTEEN_K:
+          supplierTransaction.total18kPrice += item.weight * item.unitPrice;
+          supplierTransaction.total18kWeight += item.weight;
+
+          break;
+        case ItemsEnum.TWENTY_ONE_K:
+          supplierTransaction.total21kPrice += item.weight * item.unitPrice;
+          supplierTransaction.total21kWeight += item.weight;
+
+          break;
+        case ItemsEnum.TWENTY_FOUR_K:
+          supplierTransaction.total24kPrice += item.weight * item.unitPrice;
+          supplierTransaction.total24kWeight += item.weight;
+          break;
+        case ItemsEnum.SILVER:
+          supplierTransaction.totalSilverPrice += item.weight * item.unitPrice;
+          supplierTransaction.totalSilverWeight += item.weight;
+          break;
+        default:
+          // Handle other cases if necessary
+          break;
+      }
+    }
+
+    return supplierTransaction;
   }
 }
