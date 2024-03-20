@@ -1,5 +1,4 @@
-import { Entity, Column, PrimaryGeneratedColumn } from 'typeorm';
-import { Double } from 'typeorm';
+import { Entity, Column, PrimaryGeneratedColumn, CreateDateColumn } from "typeorm";
 
 @Entity()
 export class SupplierEntity {
@@ -16,9 +15,15 @@ export class SupplierEntity {
   })
   phoneNumber: string;
 
-  // @Column({ default: 0.0 })
-  // cashBalance: Double;
+  @Column({ type: 'float', default: 0.0 })
+  cashBalance: number = 0.0;
 
-  // @Column({ default: 0.0 })
-  // ramliBalance: Double;
+  @Column({ type: 'float', default: 0.0 })
+  ramliBalance: number = 0.0;
+
+  @Column({ type: 'float', default: 0.0 })
+  silverBalance: number = 0.0;
+
+  @CreateDateColumn({ type: 'date' })
+  createdDate: Date;
 }

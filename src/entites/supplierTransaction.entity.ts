@@ -8,7 +8,6 @@ import {
 } from 'typeorm';
 import { SupplierEntity } from './supplier.entity';
 
-//export class CatalogRepository extends Repository<CatalogEntity> {
 
 @Entity()
 export class SupplierTransactionEntity {

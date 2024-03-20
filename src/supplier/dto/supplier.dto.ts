@@ -23,6 +23,30 @@ export class CreateSupplierDto {
   @IsOptional()
   @Type(() => Double)
   ramliBalance: number;
+
+  @IsOptional()
+  @Type(() => Double)
+  silverBalance: number;
+}
+
+export class UpdateSupplierDto {
+  @IsOptional()
+  name: string;
+
+  @IsOptional()
+  phoneNumber: string;
+
+  @IsOptional()
+  @Type(() => Double)
+  cashBalance: number;
+
+  @IsOptional()
+  @Type(() => Double)
+  ramliBalance: number;
+
+  @IsOptional()
+  @Type(() => Double)
+  silverBalance: number;
 }
 
 export class CreateSupplierTransactionDto {
