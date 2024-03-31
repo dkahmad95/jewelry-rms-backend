@@ -5,6 +5,8 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { SupplierEntity } from './entites/supplier.entity';
 import { SupplierTransactionEntity } from './entites/supplierTransaction.entity';
 import { SupplierTransactionItemEntity } from './entites/supplierTransactionItem.entity';
+import { APP_GUARD } from '@nestjs/core';
+import { AuthGuard } from './guards/auth.guard';
 
 @Module({
   imports: [
@@ -25,6 +27,12 @@ import { SupplierTransactionItemEntity } from './entites/supplierTransactionItem
       ],
       synchronize: true,
     }),
+  ],
+  providers: [
+    {
+      provide: APP_GUARD,
+      useClass: AuthGuard,
+    },
   ],
 })
 export class AppModule {}

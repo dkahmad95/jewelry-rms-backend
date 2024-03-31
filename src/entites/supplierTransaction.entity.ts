@@ -56,7 +56,6 @@ export class SupplierTransactionEntity {
 
   @BeforeInsert()
   calculateTotals() {
-    console.log('Data to be inserted:', this);
     this.total18KWeightToRamli = (this.total18kWeight * 750) / 995;
     this.total21KWeightToRamli = (this.total21kWeight * 875) / 995;
     this.totalRamli =

@@ -23,7 +23,6 @@ export class SupplierController {
   async findAll() {
     try {
       const data: SupplierEntity[] = await this.supplierService.findAll();
-      console.log(data);
       return data;
     } catch (e) {
       throw new HttpException(e.message, HttpStatus.INTERNAL_SERVER_ERROR);
@@ -38,7 +37,6 @@ export class SupplierController {
     try {
       const data: SupplierEntity =
         await this.supplierService.findOne(supplierId);
-      console.log(data);
       return data;
     } catch (e) {
       throw new HttpException(e.message, HttpStatus.INTERNAL_SERVER_ERROR);

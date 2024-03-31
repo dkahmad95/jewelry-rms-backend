@@ -18,11 +18,8 @@ describe('Supplier Service', () => {
 
   describe('create supplier', () => {
     it('create supplier successfully', async () => {
-      console.log(supplierStub());
       const res: SupplierEntity =
         await supplierService.createSupplier(supplierStub());
-
-      console.log(res);
 
       expect(res).toBe(supplierStub());
     });
