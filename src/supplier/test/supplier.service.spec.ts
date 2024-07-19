@@ -2,7 +2,7 @@ import { SupplierService } from '../services/supplier.service';
 
 import { Test, TestingModule } from '@nestjs/testing';
 import { supplierStub } from './stubs/supplier.stub';
-import { SupplierEntity } from '../../entites/supplier.entity';
+import { SupplierEntity } from '../../entites/supplierEntities/supplier.entity';
 
 //https://stackoverflow.com/questions/55366037/inject-typeorm-repository-into-nestjs-service-for-mock-data-testing
 jest.mock('../services/supplier.service');

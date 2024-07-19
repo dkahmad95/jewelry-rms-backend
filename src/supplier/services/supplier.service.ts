@@ -1,6 +1,6 @@
 import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
 import { CreateSupplierDto, UpdateSupplierDto } from '../dto/supplier.dto';
-import { SupplierEntity } from '../../entites/supplier.entity';
+import { SupplierEntity } from '../../entites/supplierEntities/supplier.entity';
 import { InjectRepository } from '@nestjs/typeorm';
 import { DeleteResult, Repository, UpdateResult } from 'typeorm';
 

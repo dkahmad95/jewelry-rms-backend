@@ -21,6 +21,9 @@ export class SupplierTransactionItemEntity {
   @PrimaryGeneratedColumn()
   id: number;
 
+  @Column({ type: 'uuid', generated: 'uuid' })
+  itemCode: string;
+
   @Column()
   @IsEnum(ItemsEnum)
   item: ItemsEnum;

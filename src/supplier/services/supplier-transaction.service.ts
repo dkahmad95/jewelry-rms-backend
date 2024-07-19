@@ -1,13 +1,13 @@
 import { Injectable } from '@nestjs/common';
 import { CreateSupplierTransactionDto, ItemDto } from '../dto/supplier.dto';
-import { SupplierTransactionEntity } from '../../entites/supplierTransaction.entity';
+import { SupplierTransactionEntity } from '../../entites/supplierEntities/supplierTransaction.entity';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import {
   ItemsEnum,
   SupplierTransactionItemEntity,
-} from '../../entites/supplierTransactionItem.entity';
-import { SupplierEntity } from '../../entites/supplier.entity';
+} from '../../entites/supplierEntities/supplierTransactionItem.entity';
+import { SupplierEntity } from '../../entites/supplierEntities/supplier.entity';
 
 @Injectable()
 export class SupplierTransactionService {
@@ -40,9 +40,19 @@ export class SupplierTransactionService {
 
       const supplierTransactionEntity =
         this.supplierTransactionEntityRepository.create(calculationRes);
-      const res = await this.supplierTransactionEntityRepository.save(
-        supplierTransactionEntity,
+      const supplierTransactionItemsEntity =
+        this.supplierTransactionItemEntityRepository.create(
+          supplierTransaction.items,
+        );
+      const transactionValues =
+        await this.supplierTransactionEntityRepository.save(
+          supplierTransactionEntity,
+        );
+      const items = await this.supplierTransactionItemEntityRepository.save(
+        supplierTransactionItemsEntity,
       );
+      const res = { items, transactionValues };
+
       return res;
     } else {
       throw new Error('Supplier not found');
@@ -63,6 +73,7 @@ export class SupplierTransactionService {
       total18KWeightToRamli: 0,
       total21KWeightToRamli: 0,
       totalRamli: 0,
+      totalRent: 0,
     };
 
     for (let i = 0; i < items.length; i++) {

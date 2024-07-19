@@ -12,7 +12,7 @@ import {
 } from '@nestjs/common';
 import { CreateSupplierDto, UpdateSupplierDto } from '../dto/supplier.dto';
 import { SupplierService } from '../services/supplier.service';
-import { SupplierEntity } from '../../entites/supplier.entity';
+import { SupplierEntity } from '../../entites/supplierEntities/supplier.entity';
 
 @Controller('supplier')
 export class SupplierController {
