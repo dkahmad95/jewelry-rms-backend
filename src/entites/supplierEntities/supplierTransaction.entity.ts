@@ -8,7 +8,6 @@ import {
 } from 'typeorm';
 import { SupplierEntity } from './supplier.entity';
 
-
 @Entity()
 export class SupplierTransactionEntity {
   @PrimaryGeneratedColumn()
@@ -54,6 +53,9 @@ export class SupplierTransactionEntity {
   @Column({ type: 'float', default: 0.0 })
   totalRamli: number = 0;
 
+  @Column({ type: 'float', default: 0.0 })
+  totalRent: number = 0;
+
   @BeforeInsert()
   calculateTotals() {
     this.total18KWeightToRamli = (this.total18kWeight * 750) / 995;
@@ -62,5 +64,7 @@ export class SupplierTransactionEntity {
       this.total18KWeightToRamli +
       this.total21KWeightToRamli +
       this.total24kWeight;
+    this.totalRent =
+      this.total18kPrice + this.total21kPrice + this.total24kPrice;
   }
 }
