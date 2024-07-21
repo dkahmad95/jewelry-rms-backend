@@ -10,6 +10,11 @@ import { AuthGuard } from './guards/auth.guard';
 import { ExpensesModule } from './expenses/expenses.module';
 import { ExpensesEntity } from './entites/expensesEntities/expenses.entity';
 
+import * as dotenv from 'dotenv';
+
+// Load environment variables from .env file
+dotenv.config();
+
 @Module({
   imports: [
     SupplierModule,
@@ -17,12 +22,12 @@ import { ExpensesEntity } from './entites/expensesEntities/expenses.entity';
     ExpensesModule,
     TypeOrmModule.forRoot({
       type: 'postgres',
-      host: 'ep-old-flower-a37zmel0-pooler.il-central-1.aws.neon.tech',
-      port: 5432,
-      ssl: true,
-      username: 'dkahmad95',
-      password: 'seVbD30qdzZu',
-      database: 'jewelry-rms-db',
+      host: process.env.DATABASE_HOST,
+      port: parseInt(process.env.DATABASE_PORT, 10),
+      ssl: process.env.DATABASE_SSL === 'true',
+      username: process.env.DATABASE_USERNAME,
+      password: process.env.DATABASE_PASSWORD,
+      database: process.env.DATABASE_NAME,
       entities: [
         SupplierEntity,
         SupplierTransactionEntity,

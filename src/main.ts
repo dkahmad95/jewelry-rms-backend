@@ -11,6 +11,6 @@ async function bootstrap() {
   app.useGlobalGuards(new AuthGuard());
 
   app.setGlobalPrefix('api');
-  await app.listen(8080);
+  await app.listen(8080 || process.env.PORT_URL);
 }
 bootstrap();
