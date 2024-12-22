@@ -2,15 +2,18 @@ import { Module } from '@nestjs/common';
 import { SupplierModule } from './supplier/supplier.module';
 import { SupplierTransModule } from './supplier-trans/supplier-trans.module';
 import { TypeOrmModule } from '@nestjs/typeorm';
-import { SupplierEntity } from './entites/supplierEntities/supplier.entity';
-import { SupplierTransactionEntity } from './entites/supplierEntities/supplierTransaction.entity';
-import { SupplierTransactionItemEntity } from './entites/supplierEntities/supplierTransactionItem.entity';
+import { SupplierEntity } from './entities/supplierEntities/supplier.entity';
+import { SupplierTransactionEntity } from './entities/supplierEntities/supplierTransaction.entity';
+import { SupplierTransactionItemEntity } from './entities/supplierEntities/supplierTransactionItem.entity';
 import { APP_GUARD } from '@nestjs/core';
 import { AuthGuard } from './guards/auth.guard';
 import { ExpensesModule } from './expenses/expenses.module';
-import { ExpensesEntity } from './entites/expensesEntities/expenses.entity';
+import { ExpensesEntity } from './entities/expensesEntities/expenses.entity';
 
 import * as dotenv from 'dotenv';
+import { CustomerInvoiceModule } from './customerInvoice/customerInvoice.module';
+import { CustomerInvoiceEntity } from './entities/customerInvoiceEntities/customerInvoice.entity';
+import { CustomerInvoiceItemEntity } from './entities/customerInvoiceEntities/customerInvoiceItem.entity';
 
 // Load environment variables from .env file
 dotenv.config();
@@ -19,6 +22,7 @@ dotenv.config();
   imports: [
     SupplierModule,
     SupplierTransModule,
+    CustomerInvoiceModule,
     ExpensesModule,
     TypeOrmModule.forRoot({
       type: 'postgres',
@@ -32,6 +36,8 @@ dotenv.config();
         SupplierEntity,
         SupplierTransactionEntity,
         SupplierTransactionItemEntity,
+        CustomerInvoiceEntity,
+        CustomerInvoiceItemEntity,
         ExpensesEntity,
       ],
       synchronize: true,

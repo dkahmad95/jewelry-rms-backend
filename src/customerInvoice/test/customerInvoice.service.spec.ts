@@ -1,4 +1,4 @@
-import { SupplierService } from '../services/supplier.service';
+import { SupplierService } from '../services/customerInvoice.service';
 
 import { Test, TestingModule } from '@nestjs/testing';
 import { supplierStub } from './stubs/supplier.stub';

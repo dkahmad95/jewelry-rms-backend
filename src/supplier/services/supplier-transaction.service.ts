@@ -1,13 +1,13 @@
 import { Injectable } from '@nestjs/common';
 import { CreateSupplierTransactionDto, ItemDto } from '../dto/supplier.dto';
-import { SupplierTransactionEntity } from '../../entites/supplierEntities/supplierTransaction.entity';
+import { SupplierTransactionEntity } from '../../entities/supplierEntities/supplierTransaction.entity';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import {
   ItemsEnum,
   SupplierTransactionItemEntity,
-} from '../../entites/supplierEntities/supplierTransactionItem.entity';
-import { SupplierEntity } from '../../entites/supplierEntities/supplier.entity';
+} from '../../entities/supplierEntities/supplierTransactionItem.entity';
+import { SupplierEntity } from '../../entities/supplierEntities/supplier.entity';
 
 @Injectable()
 export class SupplierTransactionService {

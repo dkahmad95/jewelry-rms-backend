@@ -7,7 +7,7 @@ import {
 } from 'class-validator';
 import { Double } from 'typeorm'; // Import Double for floating-point numbers
 import { Type } from 'class-transformer';
-import { ItemsEnum } from '../../entites/supplierEntities/supplierTransactionItem.entity';
+import { ItemsEnum } from '../../entities/supplierEntities/supplierTransactionItem.entity';
 
 export class CreateSupplierDto {
   @IsNotEmpty()

@@ -13,7 +13,7 @@ import {
 
 import { ExpensesService } from '../services/expenses.service';
 import { CreateExpenseDto, UpdateExpenseDto } from '../dto/expenses.dto';
-import { ExpensesEntity } from '../../entites/expensesEntities/expenses.entity';
+import { ExpensesEntity } from '../../entities/expensesEntities/expenses.entity';
 
 @Controller('expenses')
 export class ExpensesController {

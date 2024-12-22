@@ -1,12 +1,12 @@
 import { Module } from '@nestjs/common';
 import { SupplierController } from './controllers/supplier.controller';
 import { SupplierService } from './services/supplier.service';
-import { SupplierEntity } from '../entites/supplierEntities/supplier.entity';
+import { SupplierEntity } from '../entities/supplierEntities/supplier.entity';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { SupplierTransactionController } from './controllers/supplier-transaction.controller';
 import { SupplierTransactionService } from './services/supplier-transaction.service';
-import { SupplierTransactionItemEntity } from '../entites/supplierEntities/supplierTransactionItem.entity';
-import { SupplierTransactionEntity } from '../entites/supplierEntities/supplierTransaction.entity';
+import { SupplierTransactionItemEntity } from '../entities/supplierEntities/supplierTransactionItem.entity';
+import { SupplierTransactionEntity } from '../entities/supplierEntities/supplierTransaction.entity';
 
 @Module({
   imports: [

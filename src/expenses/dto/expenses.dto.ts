@@ -1,7 +1,7 @@
 import { IsEnum, IsNotEmpty, IsOptional, IsPositive } from 'class-validator';
 import { Double } from 'typeorm'; // Import Double for floating-point numbers
 import { Type } from 'class-transformer';
-import { ExpensesEnum } from '../../entites/expensesEntities/expenses.entity';
+import { ExpensesEnum } from '../../entities/expensesEntities/expenses.entity';
 
 export class CreateExpenseDto {
   @IsNotEmpty()
