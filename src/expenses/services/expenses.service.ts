@@ -4,14 +4,6 @@ import { DeleteResult, Repository, UpdateResult } from 'typeorm';
 import { ExpensesEntity } from '../../entities/expensesEntities/expenses.entity';
 import { CreateExpenseDto, UpdateExpenseDto } from '../dto/expenses.dto';
 
-const databaseMap = {
-  mostafa: {},
-  ahmad: {},
-  hasan: {},
-};
-
-databaseMap['mostafa'];
-
 @Injectable()
 export class ExpensesService {
   constructor(
